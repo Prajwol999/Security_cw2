@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "/Users/prajwsa/Desktop/Security_cw2/ragat_deu_server/logs/.f3a9c3751a1d7d0c605e0841fbbf9bcfd918f7f8-audit.json",
+    "files": [
+        {
+            "date": 1769441875582,
+            "name": "/Users/prajwsa/Desktop/Security_cw2/ragat_deu_server/logs/application-2026-01-26.log",
+            "hash": "e405df914f38a2e7cc362e806e01b5638f1f92fbaf957f7b5025c9c82fb4e838"
+        }
+    ],
+    "hashType": "sha256"
+}

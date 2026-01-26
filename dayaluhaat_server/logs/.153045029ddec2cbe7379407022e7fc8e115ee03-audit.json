@@ -1,0 +1,30 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 30
+    },
+    "auditLog": "D:\\Security_CW2_PRAJWAL\\ragat_deu_server\\logs\\.153045029ddec2cbe7379407022e7fc8e115ee03-audit.json",
+    "files": [
+        {
+            "date": 1768416048730,
+            "name": "D:\\Security_CW2_PRAJWAL\\ragat_deu_server\\logs\\error-2026-01-15.log",
+            "hash": "d9d84e5c8aef6a24457a29aeed7b6ac8793df4aec878f18a5bc937d1bb1dae60"
+        },
+        {
+            "date": 1768570494908,
+            "name": "D:\\Security_CW2_PRAJWAL\\ragat_deu_server\\logs\\error-2026-01-16.log",
+            "hash": "e8659073a2df4f1442461b1a4933a31b1934ed880ae2c65eb0d08d2218b46802"
+        },
+        {
+            "date": 1769097185348,
+            "name": "D:\\Security_CW2_PRAJWAL\\ragat_deu_server\\logs\\error-2026-01-22.log",
+            "hash": "89c80a5d31b31f2f51a35e4bd0b68dc475c8171ccc3812b31a2479b52da1bc18"
+        },
+        {
+            "date": 1769105759862,
+            "name": "D:\\Security_CW2_PRAJWAL\\ragat_deu_server\\logs\\error-2026-01-23.log",
+            "hash": "dc6549eedce15300f67805ad6a66b66583cd60cdf8037d4ce4860f2fe77a4422"
+        }
+    ],
+    "hashType": "sha256"
+}
