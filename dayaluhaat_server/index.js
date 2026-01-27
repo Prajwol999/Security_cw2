@@ -6,6 +6,7 @@ require('dotenv').config();
 
 const path = require("path");
 const connectDB = require('./config/db');
+const ALLOWED_ORIGINS = ["http://localhost:5173", "http://127.0.0.1:5173"];
 const userRoute = require('./routes/userRoute');
 const adminUserRoute = require("./routes/admin/adminUserRoutes");
 const cors = require('cors');
@@ -32,7 +33,7 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
     cors: {
-        origin: ["http://localhost:5173", "http://127.0.0.1:5173"],
+        origin: ALLOWED_ORIGINS,
         methods: ['GET', 'POST', 'PUT']
     }
 });
@@ -56,7 +57,7 @@ app.use(helmet({
             styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
             fontSrc: ["'self'", "https://fonts.gstatic.com"],
             imgSrc: ["'self'", "data:", "https:"],
-            connectSrc: ["'self'", "http://localhost:5173", "http://127.0.0.1:5173"]
+            connectSrc: ["'self'", ...ALLOWED_ORIGINS]
         }
     }
 }));
