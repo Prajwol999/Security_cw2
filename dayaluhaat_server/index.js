@@ -97,7 +97,9 @@ app.get('/', (req, res) => {
     return res.status(200).json({ message: "Server is running", success: true });
 });
 
+// ==========================================================================
 // Global Error Handler (Must be the last middleware)
+// ==========================================================================
 app.use((err, req, res, next) => {
     console.error("Global Error:", err.message);
 
