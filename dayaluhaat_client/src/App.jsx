@@ -4,6 +4,8 @@ import { AuthContext } from './auth/AuthProvider.jsx';
 import { NotificationProvider } from './contexts/NotificationContext.jsx';
 import AppRouter from './routers/AppRouter.jsx';
 
+const GOOGLE_CLIENT_ID = "533154754344-itat24vhf004fiaqdvugam8jpfr1i81t.apps.googleusercontent.com";
+
 const LoadingScreen = () => (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', fontSize: '24px', backgroundColor: '#f9fafb' }}>
         Loading application...
@@ -22,7 +24,7 @@ function App() {
     // Once loading is false, we render the NotificationProvider, which in turn renders the router.
     // This guarantees that NotificationProvider and useSocket only ever run when the auth state is stable.
     return (
-        <GoogleOAuthProvider clientId="533154754344-itat24vhf004fiaqdvugam8jpfr1i81t.apps.googleusercontent.com">
+        <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
             <NotificationProvider>
                 <AppRouter />
             </NotificationProvider>
