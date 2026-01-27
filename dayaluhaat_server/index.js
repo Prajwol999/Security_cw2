@@ -62,15 +62,15 @@ app.use(helmet({
 }));
 // Custom XSS Sanitization Middleware (Replaces xss-clean)
 const xss = require('xss');
-const sanitizeHtml = (middlewareReq, middlewareRes, middlewareNext) => {
-    if (middlewareReq.body) {
-        for (const key in middlewareReq.body) {
-            if (typeof middlewareReq.body[key] === 'string') {
-                middlewareReq.body[key] = xss(middlewareReq.body[key]);
+const sanitizeHtml = (req, res, next) => {
+    if (req.body) {
+        for (const key in req.body) {
+            if (typeof req.body[key] === 'string') {
+                req.body[key] = xss(req.body[key]);
             }
         }
     }
-    middlewareNext();
+    next();
 };
 app.use(sanitizeHtml);
 
