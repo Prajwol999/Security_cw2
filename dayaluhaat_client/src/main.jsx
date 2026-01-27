@@ -6,14 +6,14 @@ import { Toaster } from 'react-hot-toast';
 
 import AuthContextProvider from './auth/AuthProvider';
 import App from './App';
-// import * as Lame from "lamejs"; // <-- REMOVE THIS
+
 import './index.css';
 
 const queryClient = new QueryClient();
 const rootElement = document.getElementById('root');
 const root = createRoot(rootElement);
 
-// window.Lame = Lame; // <-- REMOVE THIS
+
 
 // Render the application.
 root.render(
