@@ -22,7 +22,7 @@ function App() {
     // Once loading is false, we render the NotificationProvider, which in turn renders the router.
     // This guarantees that NotificationProvider and useSocket only ever run when the auth state is stable.
     return (
-        <GoogleOAuthProvider clientId="381818830866-smf0ps7geage5ib54sdavnookdqnlgcq.apps.googleusercontent.com">
+        <GoogleOAuthProvider clientId="533154754344-itat24vhf004fiaqdvugam8jpfr1i81t.apps.googleusercontent.com">
             <NotificationProvider>
                 <AppRouter />
             </NotificationProvider>

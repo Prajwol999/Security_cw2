@@ -9,6 +9,11 @@
             "date": 1769448061368,
             "name": "/Users/prajwsa/Desktop/Security_cw2/ragat_deu_client/dayaluhaat_server/logs/application-2026-01-26.log",
             "hash": "05a6b56a5a7589355f9c762c98803b82dc626058381ca4edaf972d95f4bd6586"
+        },
+        {
+            "date": 1769502952815,
+            "name": "/Users/prajwsa/Desktop/Security_cw2/ragat_deu_client/dayaluhaat_server/logs/application-2026-01-27.log",
+            "hash": "878e02cb4ba8ef7674c4be2b5d963f1fd198d517104daaa435b216f2f1c068aa"
         }
     ],
     "hashType": "sha256"

@@ -185,12 +185,12 @@ exports.approveUser = async (req, res) => {
 // ✅ NEW: Google OAuth Login
 exports.googleLogin = async (req, res) => {
     const { token } = req.body;
-    const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID || '381818830866-smf0ps7geage5ib54sdavnookdqnlgcq.apps.googleusercontent.com');
+    const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID || '533154754344-itat24vhf004fiaqdvugam8jpfr1i81t.apps.googleusercontent.com');
 
     try {
         const ticket = await client.verifyIdToken({
             idToken: token,
-            audience: process.env.GOOGLE_CLIENT_ID || '381818830866-smf0ps7geage5ib54sdavnookdqnlgcq.apps.googleusercontent.com',
+            audience: process.env.GOOGLE_CLIENT_ID || '533154754344-itat24vhf004fiaqdvugam8jpfr1i81t.apps.googleusercontent.com',
         });
         const { email, name, picture } = ticket.getPayload();
 
