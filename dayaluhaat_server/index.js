@@ -40,6 +40,10 @@ const io = new Server(server, {
 
 notificationService.setIoInstance(io);
 
+
+/**
+ * Connect to MongoDB
+ */
 connectDB();
 
 // Middlewares
