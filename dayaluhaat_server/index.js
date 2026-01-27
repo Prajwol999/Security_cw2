@@ -4,6 +4,7 @@ const http = require('http');
 const { Server } = require('socket.io');
 require('dotenv').config();
 
+const path = require("path");
 const connectDB = require('./config/db');
 const userRoute = require('./routes/userRoute');
 const adminUserRoute = require("./routes/admin/adminUserRoutes");
@@ -11,7 +12,7 @@ const cors = require('cors');
 const requestRoutes = require("./routes/requestRoute");
 const adminRoute = require("./routes/admin/adminRoute");
 const chatRoutes = require('./routes/chatRoutes'); // Adjust path
-const path = require("path");
+
 const uploadRoutes = require('./routes/uploadRoutes')
 const notificationRoutes = require('./routes/notificationRoutes');
 
