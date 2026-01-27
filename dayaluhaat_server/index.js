@@ -96,7 +96,6 @@ app.use((err, req, res, next) => {
     console.error("Global Error:", err.message);
 
     // Double Extension Attack
-    // Double Extension Attack
     if (err.message === 'Double extension found') {
         return res.status(400).json({
             success: false,
