@@ -9,6 +9,7 @@ exports.getChatHistory = async (req, res) => {
     // For admin, otherUserId will be a user's ID. For a user, it will be the ADMIN_ID.
     const { otherUserId } = req.params;
     const currentUserId = req.user.id;
+    console.log(`Fetching chat history between ${currentUserId} and ${otherUserId}`);
 
     if (!currentUserId || !otherUserId) {
         return res.status(400).json({ success: false, message: "User IDs are required." });
