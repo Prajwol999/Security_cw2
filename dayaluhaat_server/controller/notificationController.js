@@ -2,7 +2,11 @@ const Notification = require('../model/Notification');
 const { sendNotificationToUser } = require('../services/notificationServices');
 const User = require('../model/user');
 
-// Get all notifications for a user (sorted by newest first)
+/**
+ * Retrieves all notifications for the authenticated user.
+ * Sorted by newest first.
+ * @route GET /api/notifications
+ */
 exports.getNotifications = async (req, res) => {
   try {
     const userId = req.user.id;
