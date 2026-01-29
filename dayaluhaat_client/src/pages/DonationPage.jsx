@@ -105,7 +105,7 @@ const DonationPage = () => {
         `${backendUrl}/api/donations/esewa-payment-initiate`,
         {
           amount: Number(amount),
-          purchase_order_id: `Order_${campaignId}_${Date.now()}`,
+          purchase_order_id: `Order-${campaignId}-${Date.now()}`,
           purchase_order_name: campaign.title,
           website_url: window.location.origin,
         }
@@ -289,8 +289,8 @@ const DonationPage = () => {
                 type="button"
                 onClick={() => setPaymentMethod('khalti')}
                 className={`py-3 px-4 rounded-lg border-2 flex items-center justify-center font-semibold transition-all ${paymentMethod === 'khalti'
-                    ? 'border-purple-600 bg-purple-50 text-purple-700'
-                    : 'border-gray-200 hover:border-purple-400'
+                  ? 'border-purple-600 bg-purple-50 text-purple-700'
+                  : 'border-gray-200 hover:border-purple-400'
                   }`}
               >
                 Khalti
@@ -299,8 +299,8 @@ const DonationPage = () => {
                 type="button"
                 onClick={() => setPaymentMethod('esewa')}
                 className={`py-3 px-4 rounded-lg border-2 flex items-center justify-center font-semibold transition-all ${paymentMethod === 'esewa'
-                    ? 'border-green-600 bg-green-50 text-green-700'
-                    : 'border-gray-200 hover:border-green-400'
+                  ? 'border-green-600 bg-green-50 text-green-700'
+                  : 'border-gray-200 hover:border-green-400'
                   }`}
               >
                 eSewa

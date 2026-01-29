@@ -12,7 +12,7 @@ const authLimiter = rateLimit({
 });
 
 const loginLimiter = rateLimit({
-    windowMs: 10 * 60 * 1000, // 10 minutes
+    windowMs: 10 * 1000, // 10 minutes
     max: 5, // 5 attempts
     message: {
         success: false,

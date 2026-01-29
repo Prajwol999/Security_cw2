@@ -76,10 +76,10 @@ const verifyRecaptcha = require('../middleware/recaptcha');
 // ## 2. Define Public Routes with Security Layers ##
 
 // User registration with rate limiting and reCAPTCHA
-router.post('/register', [authLimiter], registerUser);
+router.post('/register', [authLimiter, verifyRecaptcha], registerUser);
 
 // User login with rate limiting and reCAPTCHA
-router.post("/login", [loginLimiter], loginUser);
+router.post("/login", [loginLimiter, verifyRecaptcha], loginUser);
 
 // 2FA Verification (Protected by strict rate limit)
 router.post("/verify-2fa", [otpLimiter], verify2FA);

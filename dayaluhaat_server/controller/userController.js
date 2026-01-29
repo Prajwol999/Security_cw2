@@ -8,7 +8,7 @@ const { validatePassword } = require("../utils/passwordValidator");
 const nodemailer = require("nodemailer");
 const { OAuth2Client } = require('google-auth-library');
 const fetch = require('node-fetch');
-const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || 'YOUR_GOOGLE_CLIENT_ID';
+const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 const client = new OAuth2Client(GOOGLE_CLIENT_ID);
 
 
@@ -185,12 +185,12 @@ exports.approveUser = async (req, res) => {
 // ✅ NEW: Google OAuth Login
 exports.googleLogin = async (req, res) => {
     const { token } = req.body;
-    const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID || '533154754344-itat24vhf004fiaqdvugam8jpfr1i81t.apps.googleusercontent.com');
+    const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
     try {
         const ticket = await client.verifyIdToken({
             idToken: token,
-            audience: process.env.GOOGLE_CLIENT_ID || '533154754344-itat24vhf004fiaqdvugam8jpfr1i81t.apps.googleusercontent.com',
+            audience: process.env.GOOGLE_CLIENT_ID,
         });
         const { email, name, picture } = ticket.getPayload();
 
@@ -206,7 +206,7 @@ exports.googleLogin = async (req, res) => {
                 password: crypto.randomBytes(16).toString('hex'), // Random password for OAuth users
                 role: 'user', // Default role
                 description: 'Joined via Google',
-                contact: '', // Optional
+                contact: `google_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`, // Dummy contact to satisfy unique + required
                 disease: 'None' // Default
             });
             await user.save();
@@ -239,8 +239,14 @@ exports.googleLogin = async (req, res) => {
         });
 
     } catch (error) {
-        console.error("Google verify error:", error);
-        res.status(401).json({ success: false, message: 'Invalid Google Token' });
+        console.error("Google Login Verification Error:", error);
+        console.error("Received Token:", token ? token.substring(0, 20) + "..." : "No Token");
+        console.error("Expected Audience:", process.env.GOOGLE_CLIENT_ID);
+
+        res.status(401).json({
+            success: false,
+            message: 'Google Sign-In Failed: ' + (error.message || 'Invalid Token')
+        });
     }
 };
 // Admin: Delete user

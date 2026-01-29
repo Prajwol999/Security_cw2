@@ -4,16 +4,14 @@ const http = require('http');
 const { Server } = require('socket.io');
 require('dotenv').config();
 
-const path = require("path");
 const connectDB = require('./config/db');
-const ALLOWED_ORIGINS = ["http://localhost:5173", "http://127.0.0.1:5173"];
 const userRoute = require('./routes/userRoute');
 const adminUserRoute = require("./routes/admin/adminUserRoutes");
 const cors = require('cors');
 const requestRoutes = require("./routes/requestRoute");
 const adminRoute = require("./routes/admin/adminRoute");
 const chatRoutes = require('./routes/chatRoutes'); // Adjust path
-
+const path = require("path");
 const uploadRoutes = require('./routes/uploadRoutes')
 const notificationRoutes = require('./routes/notificationRoutes');
 
@@ -33,17 +31,13 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
     cors: {
-        origin: ALLOWED_ORIGINS,
+        origin: ["http://localhost:5173", "http://127.0.0.1:5173"],
         methods: ['GET', 'POST', 'PUT']
     }
 });
 
 notificationService.setIoInstance(io);
 
-
-/**
- * Connect to MongoDB
- */
 connectDB();
 
 // Middlewares
@@ -54,28 +48,51 @@ app.use(auditLogger);
 // Security Middlewares
 app.use(helmet({
     crossOriginResourcePolicy: { policy: "cross-origin" },
+    crossOriginOpenerPolicy: { policy: "same-origin-allow-popups" },
     contentSecurityPolicy: {
         directives: {
             defaultSrc: ["'self'"],
-            scriptSrc: ["'self'", "'unsafe-inline'"],
-            styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+            scriptSrc: [
+                "'self'",
+                "'unsafe-inline'",
+                "https://www.google.com/recaptcha/",
+                "https://www.gstatic.com/recaptcha/",
+                "https://accounts.google.com/gsi/client"
+            ],
+            styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://accounts.google.com/gsi/style"],
             fontSrc: ["'self'", "https://fonts.gstatic.com"],
             imgSrc: ["'self'", "data:", "https:"],
-            connectSrc: ["'self'", ...ALLOWED_ORIGINS]
+            connectSrc: [
+                "'self'",
+                "http://localhost:5173",
+                "http://127.0.0.1:5173",
+                "https://accounts.google.com/gsi/",
+                "https://www.google.com/recaptcha/"
+            ],
+            frameSrc: [
+                "'self'",
+                "https://www.google.com/recaptcha/",
+                "https://recaptcha.google.com/recaptcha/",
+                "https://accounts.google.com/gsi/"
+            ],
         }
     }
 }));
 // Custom XSS Sanitization Middleware (Replaces xss-clean)
 const xss = require('xss');
-const sanitizeHtml = (req, res, next) => {
-    if (req.body) {
-        for (const key in req.body) {
-            if (typeof req.body[key] === 'string') {
-                req.body[key] = xss(req.body[key]);
+const sanitizeHtml = (middlewareReq, middlewareRes, middlewareNext) => {
+    if (middlewareReq.body) {
+        for (const key in middlewareReq.body) {
+            // Exempt password and recaptcha token from sanitization
+            if (key === 'password' || key === 'confirmPassword' || key === 'g-recaptcha-response') {
+                continue;
+            }
+            if (typeof middlewareReq.body[key] === 'string') {
+                middlewareReq.body[key] = xss(middlewareReq.body[key]);
             }
         }
     }
-    next();
+    middlewareNext();
 };
 app.use(sanitizeHtml);
 
@@ -97,12 +114,11 @@ app.get('/', (req, res) => {
     return res.status(200).json({ message: "Server is running", success: true });
 });
 
-// ==========================================================================
 // Global Error Handler (Must be the last middleware)
-// ==========================================================================
 app.use((err, req, res, next) => {
     console.error("Global Error:", err.message);
 
+    // Double Extension Attack
     // Double Extension Attack
     if (err.message === 'Double extension found') {
         return res.status(400).json({

@@ -12,28 +12,24 @@ import { loginUserService } from "../services/authUserServices";
  * @param {{ email, password }} credentials - The user's login credentials.
  * @returns {Promise<object>} - The successful response data, augmented with a 'role'.
  */
-const loginAttempt = async ({ email, password }) => {
+const loginAttempt = async (credentials) => {
   try {
     // 1. Attempt Admin Login
-    const adminRes = await adminLogin({ username: email, password });
-    // adminRes is the full axios response, so we use adminRes.data
+    // Admin login expects { username, password }
+    const adminRes = await adminLogin({
+      username: credentials.email,
+      password: credentials.password
+    });
     return { ...adminRes.data, role: 'admin' };
   } catch (adminError) {
     console.log("Admin login failed, trying user login.");
     // 2. If admin fails, attempt User Login
     try {
-      // loginUserService returns the data object directly, not the full response
-      const userRes = await loginUserService({ email, password });
+      // Pass full credentials (including email, password, and g-recaptcha-response)
+      const userRes = await loginUserService(credentials);
 
-      // ----- THE FIX IS HERE -----
-      // We spread `userRes` directly, because it's already the data object.
-      // And we use the role from the response, defaulting to 'user' only if missing.
       return { ...userRes, role: userRes.user?.role || 'user' };
-      // --------------------------
-
     } catch (userError) {
-      // 3. If both fail, throw the final error to be caught by `onError`.
-      // We prioritize showing the user-facing error message.
       throw userError.response?.data || userError;
     }
   }
