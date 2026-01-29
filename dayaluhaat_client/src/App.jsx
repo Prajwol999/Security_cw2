@@ -6,12 +6,19 @@ import AppRouter from './routers/AppRouter.jsx';
 
 const GOOGLE_CLIENT_ID = "533154754344-itat24vhf004fiaqdvugam8jpfr1i81t.apps.googleusercontent.com";
 
+/**
+ * Loading screen component displayed while authentication is initializing.
+ */
 const LoadingScreen = () => (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', fontSize: '24px', backgroundColor: '#f9fafb' }}>
         Loading application...
     </div>
 );
 
+/**
+ * Root Application Component.
+ * Handles authentication initialization and global provider setup.
+ */
 function App() {
     const { loading: authLoading } = useContext(AuthContext);
 
