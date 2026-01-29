@@ -1,7 +1,8 @@
 {
-  "name": "front-end-forhopecare",
+  "name": "ragat-deu-client",
+  "version": "0.1.0",
+  "description": "Client frontend for Ragat Deu application",
   "private": true,
-  "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
