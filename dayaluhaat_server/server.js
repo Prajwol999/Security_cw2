@@ -6,6 +6,6 @@ server.listen(
     PORT,
     "0.0.0.0",
     () => {
-        console.log("Server running on port", PORT);
+        console.log(`Server is running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
     }
-); 
+);
